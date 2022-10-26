@@ -1,0 +1,39 @@
+<main>
+
+    <!-- ko ifnot: isConnected -->
+    <section id="setup">
+        <label>SELECT DEVICE
+        <select data-bind="options: Devices,
+                           optionsText: 'name',
+                           optionsValue: 'index',
+                           value: DeviceIndex">
+        </select>
+        </label>
+        <button data-bind="click: connect, enable: canConnect">CONNECT</button>
+    </section>
+    <!-- /ko -->
+
+    <!-- ko if: isConnected -->
+
+    <!-- ko ifnot: Buffer -->
+    <section id="library">
+
+        <!-- ko if: Presets().length === 0 -->
+        <p>Hang tight! Waiting for the preset list ...</p>
+        <!-- /ko -->
+
+        <ul data-bind="foreach: Presets">
+            <li data-bind="click: $component.editPreset">
+                <span data-bind="text: patch"></span>
+                <span data-bind="text: name"></span>
+            </li>
+        </ul>
+    </section>
+    <!-- /ko -->
+
+    <!-- ko if: Buffer -->
+    <!-- ko component: { name: "Editor", params: { buffer: Buffer, presets: Presets } } --><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- /ko -->
+</main>

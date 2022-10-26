@@ -1,0 +1,137 @@
+<section id="editor" data-bind="event: { dblclick: editValue }">
+    <input id="patchTitle" type="text" maxlength="16" data-bind="textInput: Patch.Title">
+    <button data-bind="click: confirmSave">SAVE</button>
+    <button data-bind="click: confirmClose">PRESETS</button>
+
+    <section id="amp">
+        <switch params="label: 'DRV', value: Patch.Drive"></switch>
+        <label>AMP
+            <select data-bind="options: Select(Amps),
+                               optionsText: 'name',
+                               optionsValue: 'id',
+                               value: Patch.Amp">
+            </select>
+        </label>
+    </section>
+
+    <section id="cab">
+        <label>CAB
+            <select data-bind="options: Select(Cabs),
+                               optionsText: 'name',
+                               optionsValue: 'id',
+                               value: Patch.Cabinet">
+            </select>
+        </label>
+    </section>
+
+    <section id="tone">
+        <slider params="label: 'GAIN', value: Patch.Gain"></slider>
+        <slider params="label: 'VOLUME', value: Patch.Volume"></slider>
+        <slider params="label: 'BASS', value: Patch.Bass"></slider>
+        <slider params="label: 'MID', value: Patch.Mid"></slider>
+        <slider params="label: 'TREBLE', value: Patch.Treble"></slider>
+        <slider params="label: 'PRESENCE', value: Patch.Presence"></slider>
+    </section>
+
+    <section id="effects">
+        <fieldset>
+            <label>EFFECTS
+                <input type="radio" name="fxSelect" value="0" data-bind="checked: FXTab">
+            </label>
+            <label>PRE FX
+                <input type="radio" name="fxSelect" value="1" data-bind="checked: FXTab">
+            </label>
+            <label>MOD
+                <input type="radio" name="fxSelect" value="2" data-bind="checked: FXTab">
+            </label>
+            <label>DELAY
+                <input type="radio" name="fxSelect" value="3" data-bind="checked: FXTab">
+            </label>
+            <label>REVERB
+                <input type="radio" name="fxSelect" value="4" data-bind="checked: FXTab">
+            </label>
+        </fieldset>
+
+        <!-- FX, NOISE GATE & WAH POSITION -->
+        <section id="fx" data-bind="css: { active: FXTab() == 0 }">
+            <switch params="label: 'FX', value: Patch.FXonoff"></switch>
+            <select data-bind="options: Select(FXTypes),
+                               optionsText: 'name',
+                               optionsValue: 'id',
+                               value: Patch.FXMixAssign">
+            </select>
+            <slider params="label: 'NOISE GATE', value: Patch.NoiseGate"></slider>
+            <slider params="label: 'WAH POS', value: Patch.WahPosition"></slider>
+            <div id="FXHint">
+                <p><b>EFFECTS</b><span data-bind="text: FXHint(0)"></span></p>
+                <p><b>2nd PARAM</b><span data-bind="text: FXHint(1)"></span></p>
+                <p><b>TAP</b><span data-bind="text: FXHint(2)"></span></p>
+            </div>
+        </section>
+
+        <!-- PRE-FX -->
+        <section id="prefx" data-bind="css: { active: FXTab() == 1 } ">
+            <select data-bind="options: Select(PreFX),
+                               optionsText: 'name',
+                               optionsValue: 'id',
+                               value: Patch.PreFXType">
+            </select>
+            <!-- ko if: Patch.PreFXType() === 1 -->
+            <slider params="label: 'RATIO', value: Patch.CompRatio"></slider>
+            <slider params="label: 'ATTACK', value: Patch.CompAttack"></slider>
+            <!-- /ko -->
+            <!-- ko if: Patch.PreFXType() === 2 -->
+            <slider params="label: 'SPEED', value: Patch.WahSpeed, modType: null"></slider>
+            <slider params="label: 'DEPTH', value: Patch.WahDepth, modType: null"></slider>
+            <slider params="label: 'OFFSET', value: Patch.WahOffset"></slider>
+            <slider params="label: 'FREQ', value: Patch.WahFreq"></slider>
+            <!-- /ko -->
+        </section>
+
+        <!-- MODULATION -->
+        <section id="mod" data-bind="css: { active: FXTab() == 2 } ">
+            <select data-bind="options: Select(ModTypes),
+                               optionsText: 'name',
+                               optionsValue: 'id',
+                               value: Patch.ModType">
+            </select>
+            <slider params="label: 'SPEED', value: Patch.ModSpeed, modType: Patch.ModType"></slider>
+            <slider params="label: 'DEPTH', value: Patch.ModDepth, disabled: Patch.ModType() === 2"></slider>
+            <slider params="label: 'FEEDBACK', value: Patch.ModFeedback, disabled: Patch.ModType() !== 1 && Patch.ModType() < 5"></slider>
+            <slider params="label: 'MIX', value: Patch.ModMix"></slider>
+        </section>
+
+        <!-- DELAY -->
+        <section id="delay" data-bind="css: { active: FXTab() == 3 } ">
+            <select data-bind="options: Select(DelayTypes),
+                               optionsText: 'name',
+                               optionsValue: 'id',
+                               value: Patch.DelayType">
+            </select>
+            <slider params="label: 'TIME', value: Patch.DelayTime"></slider>
+            <slider params="label: 'SPREAD', value: Patch.DelaySpread, disabled: Patch.DelayType() > 0"></slider>
+            <slider params="label: 'FEEDBACK', value: Patch.DelayFeedback"></slider>
+            <slider params="label: 'MIX', value: Patch.DelayMix"></slider>
+        </section>
+
+        <!-- REVERB -->
+        <section id="reverb" data-bind="css: { active: FXTab() == 4 } ">
+            <switch params="label: 'REV', value: Patch.ReverbSend"></switch>
+            <select data-bind="options: Select(ReverbTypes),
+                               optionsText: 'name',
+                               optionsValue: 'id',
+                               value: Patch.ReverbType">
+            </select>
+            <slider params="label: 'MIX', value: Patch.ReverbMix"></slider>
+        </section>
+
+    </section>
+</section>
+
+<dialog role="dialog" class="sheet" data-bind="sheet: rawValue" hidden>
+    <!-- ko component: { name: "EditValue", params: { data: rawValue, onSubmit: setValue } } --><!-- /ko -->
+</dialog>
+
+<dialog role="dialog" class="sheet" data-bind="sheet: SavePatchTo" hidden>
+    <!-- ko component: { name: "SavePatch", params: { data: SavePatchTo, onSubmit: savePatch } } --><!-- /ko -->
+</dialog>

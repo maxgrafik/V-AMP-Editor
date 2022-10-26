@@ -1,0 +1,33 @@
+/* ---  css animations --- */
+
+@keyframes sheetIn {
+    0%   { top: 20px; opacity: 0 }
+    100% { top: 40px; opacity: 1 }
+}
+.sheetIn {
+    animation: sheetIn .22s ease-out;
+}
+
+@keyframes sheetOut {
+    0%   { top: 40px; opacity: 1 }
+    100% { top: 20px; opacity: 0 }
+}
+.sheetOut {
+    animation: sheetOut .3s ease-out;
+}
+
+@keyframes sheetBackdropIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+.sheetBackdropIn {
+    animation: sheetBackdropIn .22s ease;
+}
+
+@keyframes sheetBackdropOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+.sheetBackdropOut {
+    animation: sheetBackdropOut .3s ease;
+}

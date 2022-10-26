@@ -1,0 +1,16 @@
+<header>
+    <h2>Save Preset</h2>
+</header>
+
+<select data-bind="options: $parents[1].Presets,
+                   optionsText: function(item) {
+                      return item.patch() + ' ' + item.name()
+                   },
+                   optionsValue: 'index',
+                   value: editedData">
+</select>
+
+<footer>
+    <button data-bind="click: close">Cancel</button>
+    <button data-bind="click: submit" class="default">Save</button>
+</footer>

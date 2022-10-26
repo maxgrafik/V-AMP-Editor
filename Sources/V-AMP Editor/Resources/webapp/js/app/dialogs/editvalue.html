@@ -1,0 +1,15 @@
+<header>
+    <h2>Edit raw value</h2>
+</header>
+
+<!-- ko with: editedData -->
+
+<input type="text" data-bind="value: value">
+<small>Valid range: <span data-bind="text: min"></span> to <span data-bind="text: max"></span></small>
+
+<!-- /ko -->
+
+<footer>
+    <button data-bind="click: close">Cancel</button>
+    <button data-bind="click: submit" class="default">OK</button>
+</footer>

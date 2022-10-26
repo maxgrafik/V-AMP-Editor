@@ -1,0 +1,9 @@
+@import url("normalize.css");
+@import url("animations.css");
+@import url("ui.css");
+@font-face {
+    font-family: "Michroma";
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Michroma-Regular.woff2') format('woff2');
+}

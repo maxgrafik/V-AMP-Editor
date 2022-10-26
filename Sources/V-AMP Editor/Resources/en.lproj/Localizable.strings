@@ -1,0 +1,30 @@
+/* Menus */
+
+"About" = "About %s";
+"Preferences" = "Preferences …";
+"Services" = "Services";
+"Hide" = "Hide %s";
+"Hide Others" = "Hide Others";
+"Show All" = "Show All";
+"Quit" = "Quit %s";
+
+"File" = "File";
+"Import" = "Import Preset …";
+"Export" = "Export Preset …";
+"Close" = "Close";
+
+"Edit" = "Edit";
+"Undo" = "Undo";
+"Redo" = "Redo";
+"Cut" = "Cut";
+"Copy" = "Copy";
+"Paste" = "Paste";
+"Delete" = "Delete";
+"Select All" = "Select All";
+
+"Window" = "Window";
+"Minimize" = "Minimize";
+"Zoom" = "Zoom";
+"Bring All to Front" = "Bring All to Front";
+
+"Help" = "Help";
